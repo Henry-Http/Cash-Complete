@@ -121,9 +121,7 @@ const DashboardStats = ({ darkMode }) => {
         </div>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {/* Branch Info Card */}
         <div
           className={`p- rounded-lg shadow-md ${
             darkMode ? "bg-gray-800 text-gray-200" : "bg-white text-gray-900"
@@ -248,7 +246,6 @@ const DashboardStats = ({ darkMode }) => {
           }`}
         >
           <div className="flex items-center space-x-4 p-9 bg-[#E9EEFC] rounded-bl-[50px] rounded-tr-[50px] ">
-            {/* Custom Icon for Cash Position */}
             <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg">
               <FaHockeyPuck className="text-[#055DAE] text-3xl" />
             </div>
