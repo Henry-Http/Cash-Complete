@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../store/slices/authSlice";
 import {
   FaUser,
   FaLock,
@@ -12,15 +15,37 @@ import logo from "../assets/images/cash-logo.png";
 const LoginPage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
-  };
+  const toggleDarkMode = useCallback(() => {
+    console.log("Toggling dark mode");
+    setDarkMode((prev) => !prev);
+  }, []);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const togglePasswordVisibility = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      setError("");
+      if (username === "test" && password === "123456") {
+        console.log("Login successful, navigating to /otp");
+        dispatch(login({ username }));
+        navigate("/otp", { replace: true });
+      } else {
+        setError("Invalid username or password. Please use 'test' and '123456'.");
+      }
+    },
+    [username, password, dispatch, navigate]
+  );
+
+  console.log("LoginPage rendered");
 
   return (
     <div
@@ -48,7 +73,10 @@ const LoginPage = () => {
           } transition-colors duration-300`}
         >
           <h2 className="text-2xl font-semibold mb-6 text-center">Log In</h2>
-          <form>
+          {error && (
+            <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+          )}
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-sm mb-2">Username</label>
               <div className="relative">
@@ -58,6 +86,8 @@ const LoginPage = () => {
                 <input
                   type="text"
                   placeholder="Your email address or username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   className={`w-full pl-10 pr-3 py-2 rounded-lg border ${
                     darkMode
                       ? "bg-gray-700 border-gray-600 text-white"
@@ -76,6 +106,8 @@ const LoginPage = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className={`w-full pl-10 pr-10 py-2 rounded-lg border ${
                     darkMode
                       ? "bg-gray-700 border-gray-600 text-white"

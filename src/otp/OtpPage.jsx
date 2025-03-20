@@ -1,33 +1,39 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"; 
+import { verifyOtp } from "../store/slices/authSlice";
 import { FaSun, FaMoon } from "react-icons/fa";
 import logo from "../assets/images/cash-logo.png";
-
 
 const OtpPage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [error, setError] = useState("");
   const inputRefs = useRef([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isAuthenticated, otpSent } = useSelector((state) => state.auth);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark");
   };
 
   const handleChange = (element, index) => {
-    if (isNaN(element.value)) return;
+    const value = element.value;
+    if (isNaN(value) || value.length > 1) return;
 
     const newOtp = [...otp];
-    newOtp[index] = element.value;
+    newOtp[index] = value;
     setOtp(newOtp);
 
-    if (element.value && index < 5) {
-      inputRefs.current[index + 1].focus();
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
-      inputRefs.current[index - 1].focus();
+      inputRefs.current[index - 1]?.focus();
     }
   };
 
@@ -36,13 +42,29 @@ const OtpPage = () => {
     if (paste.length === 6 && !isNaN(paste)) {
       const newOtp = paste.split("");
       setOtp(newOtp);
-      inputRefs.current[5].focus();
+      inputRefs.current[5]?.focus();
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError("");
+    const enteredOtp = otp.join("");
+    if (enteredOtp === "123456") {
+      dispatch(verifyOtp());
+      navigate("/control-tower", { replace: true });
+    } else {
+      setError("Invalid OTP. Please use '123456'.");
     }
   };
 
   useEffect(() => {
-    inputRefs.current[0].focus();
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
   }, []);
+
+  console.log("OtpPage rendered, isAuthenticated:", isAuthenticated, "otpSent:", otpSent);
 
   return (
     <div
@@ -73,33 +95,37 @@ const OtpPage = () => {
           <p className="text-sm text-center mb-6">
             We’ve sent a 6-digit code to your email. Please enter it below.
           </p>
+          {error && (
+            <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+          )}
+          <form onSubmit={handleSubmit}>
+            <div className="flex justify-between mb-6">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  maxLength="1"
+                  value={digit}
+                  onChange={(e) => handleChange(e.target, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  onPaste={index === 0 ? handlePaste : undefined}
+                  ref={(el) => (inputRefs.current[index] = el)}
+                  className={`w-10 h-10 md:w-12 md:h-12 text-center text-lg rounded-lg border ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600 text-white"
+                      : "bg-gray-100 border-gray-300 text-gray-800"
+                  } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                />
+              ))}
+            </div>
 
-          <div className="flex justify-between mb-6">
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                type="text"
-                maxLength="1"
-                value={digit}
-                onChange={(e) => handleChange(e.target, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                onPaste={index === 0 ? handlePaste : undefined}
-                ref={(el) => (inputRefs.current[index] = el)}
-                className={`w-10 h-10 md:w-12 md:h-12 text-center text-lg rounded-lg border ${
-                  darkMode
-                    ? "bg-gray-700 border-gray-600 text-white"
-                    : "bg-gray-100 border-gray-300 text-gray-800"
-                } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-              />
-            ))}
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Verify
-          </button>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Verify
+            </button>
+          </form>
 
           <div className="text-center mt-4 text-sm">
             <p>

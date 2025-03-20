@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+import DashboardStats from "./components/DashboardStats"; 
 
 const ControlTowerPage = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -16,26 +18,26 @@ const ControlTowerPage = () => {
 
   return (
     <div
-      className={`min-h-screen flex ${
+      className={`min-h-screen flex flex-col ${
         darkMode ? "bg-gray-900" : "bg-gray-100"
       } transition-colors duration-300`}
     >
+      <Header
+        toggleSidebar={toggleSidebar}
+        toggleDarkMode={toggleDarkMode}
+        darkMode={darkMode}
+      />
 
-      {/* Main Content */}
-      <div className="flex-1 md:ml-64">
-        {/* Header */}
-        <Header
+      <div className="flex flex-col md:flex-row flex-1">
+        <Sidebar
+          sidebarOpen={sidebarOpen}
           toggleSidebar={toggleSidebar}
-          toggleDarkMode={toggleDarkMode}
           darkMode={darkMode}
         />
 
-        {/* Main Content Placeholder */}
-        <main className="p-4 md:p-6">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
-            Control Tower
-          </h2>
-          {/* Additional content will be added in future steps */}
+        <main className="flex-1 p-4 md:p-6">
+        
+          <DashboardStats darkMode={darkMode} />
         </main>
       </div>
     </div>
