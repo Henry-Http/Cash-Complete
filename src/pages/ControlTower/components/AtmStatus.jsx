@@ -115,7 +115,7 @@ const AtmStatus = ({ darkMode }) => {
               <p className="text-[16px] font-semibold">₦36,110,000</p>
             </div>
             <div>
-              <button className="w-[90px] bg-[#055DAE] text-gray-300 text-sm py-2 rounded-lg hover:bg-blue-700 transition-colors mb-4 italic font-extralight ms-12">
+              <button className="w-[90px] bg-[#055DAE] text-gray-300 text-sm py-2 rounded-lg hover:bg-blue-700 transition-colors mb-4 italic font-extralight md:ms-12">
                 View Detail
               </button>
             </div>

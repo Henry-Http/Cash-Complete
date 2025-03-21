@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import DashboardStats from "./components/DashboardStats";
 import FinancialMetrics from "./components/FinancialMetrics";
 import AtmStatus from "./components/AtmStatus";
+import RequestTable from "./components/RequestTable";
 
 const ControlTowerPage = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -44,6 +45,9 @@ const ControlTowerPage = () => {
           </div>
           <div className="mt-8 sm:mt-12">
             <AtmStatus darkMode={darkMode} />
+          </div>
+          <div className="mt-8 sm:mt-12">
+            <RequestTable darkMode={darkMode} />
           </div>
         </main>
       </div>
