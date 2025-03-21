@@ -2,7 +2,6 @@ import React from "react";
 import { FaCalendarAlt, FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const RequestTable = ({ darkMode }) => {
-  // Sample data (replace with real data later)
   const requests = [
     {
       status: "Approved",
@@ -40,10 +39,8 @@ const RequestTable = ({ darkMode }) => {
         darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
       }`}
     >
-      {/* Header: Filters and Search */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
-          {/* Request Dropdown */}
           <div className="w-full sm:w-40">
             <label
               className={`block text-sm mb-1 ${
@@ -83,7 +80,6 @@ const RequestTable = ({ darkMode }) => {
             </div>
           </div>
 
-          {/* Date Dropdown */}
           <div className="w-full sm:w-40">
             <label
               className={`block text-sm mb-1 ${
@@ -111,7 +107,6 @@ const RequestTable = ({ darkMode }) => {
           </div>
         </div>
 
-        {/* Search Bar */}
         <div className="relative w-full sm:w-64">
           <input
             type="text"
@@ -128,7 +123,6 @@ const RequestTable = ({ darkMode }) => {
         </div>
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-left">
           <thead>
@@ -209,7 +203,6 @@ const RequestTable = ({ darkMode }) => {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="flex justify-start mt-4">
         <button
           className={`p-2 rounded-full ${
