@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import DashboardStats from "./components/DashboardStats"; 
+import DashboardStats from "./components/DashboardStats";
+import FinancialMetrics from "./components/FinancialMetrics";
+import AtmStatus from "./components/AtmStatus";
 
 const ControlTowerPage = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -36,8 +38,13 @@ const ControlTowerPage = () => {
         />
 
         <main className="flex-1 p-4 md:p-6">
-        
           <DashboardStats darkMode={darkMode} />
+          <div className="mt-12">
+            <FinancialMetrics darkMode={darkMode} />
+          </div>
+          <div className="mt-8 sm:mt-12">
+            <AtmStatus darkMode={darkMode} />
+          </div>
         </main>
       </div>
     </div>

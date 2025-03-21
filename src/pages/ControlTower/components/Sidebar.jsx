@@ -57,7 +57,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, darkMode }) => {
             <a
               href="#"
               onClick={item.isDropdown ? toggleOperations : undefined}
-              className={`flex items-center justify-between py-2 px-4 rounded-lg ${
+              className={`flex items-center justify-between py-1 px-4 rounded-lg ${
                 item.active
                   ? "bg-blue-100 text-blue-600"
                   : darkMode
@@ -70,7 +70,7 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, darkMode }) => {
                 <span className="text-[15px] font-medium mt-5">{item.name}</span>
               </div>
               {item.isDropdown && (
-                <span className="text-lg">
+                <span className="text-lg mt-5">
                   {operationsOpen ? <FaChevronUp /> : <FaChevronDown />}
                 </span>
               )}

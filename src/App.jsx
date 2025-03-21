@@ -11,6 +11,7 @@ import { store } from "./store/store";
 import LoginPage from "./login/LoginPage";
 import OtpPage from "./otp/OtpPage";
 import ControlTowerPage from "./pages/ControlTower/ControlTowerPage";
+import FinancialMetrics from "./pages/ControlTower/components/FinancialMetrics";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -49,9 +50,17 @@ const App = () => {
           <Route
             path="/control-tower"
             element={
-              <ProtectedRoute>
+              <>
                 <ControlTowerPage />
-              </ProtectedRoute>
+              </>
+            }
+          />
+          <Route
+            path="/FinancialMetrics"
+            element={
+              <>
+                <FinancialMetrics />
+              </>
             }
           />
           <Route path="/" element={<Navigate to="/login" replace />} />
