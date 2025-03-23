@@ -9,19 +9,45 @@ import {
   FaUsers,
   FaClipboardList,
   FaCog,
-  FaChevronDown,
-  FaChevronUp,
 } from "react-icons/fa";
+import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ sidebarOpen, toggleSidebar, darkMode }) => {
   const [operationsOpen, setOperationsOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState("Control Tower");
+  const [activeSubItem, setActiveSubItem] = useState(null);
+
+  const navigate = useNavigate();
 
   const toggleOperations = () => {
     setOperationsOpen(!operationsOpen);
   };
 
+  const handleItemClick = (itemName) => {
+    setActiveItem(itemName);
+    setActiveSubItem(null);
+    if (itemName !== "Operations") {
+      setOperationsOpen(false);
+    } else {
+      toggleOperations();
+    }
+  };
+
+  const handleSubItemClick = (subItem) => {
+    setActiveItem("Operations");
+    setActiveSubItem(subItem);
+
+    if (subItem === "Cash Request") {
+      navigate("/cash-requests");
+      if (sidebarOpen) {
+        toggleSidebar();
+      }
+    }
+  };
+
   const menuItems = [
-    { name: "Control Tower", icon: <FaTachometerAlt />, active: true },
+    { name: "Control Tower", icon: <FaTachometerAlt /> },
     {
       name: "Operations",
       icon: <FaTasks />,
@@ -45,44 +71,51 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, darkMode }) => {
   return (
     <div
       className={`w-full md:w-64 ${
-        darkMode ? "bg-gray-800" : "bg-white"
-      } shadow-lg md:min-h-screen transition-all duration-300 ease-in-out z-20 ${
+        darkMode ? "bg-gray-800 md:bg-gray-900" : "bg-white md:bg-gray-100"
+      } md:min-h-screen transition-all duration-300 ease-in-out z-20 ${
         sidebarOpen ? "block" : "hidden md:block"
       }`}
     >
-      <nav className="p-4 py-7">
+      <nav className="ps-4 py-7">
         {menuItems.map((item, index) => (
           <div key={index}>
             <a
               href="#"
-              onClick={item.isDropdown ? toggleOperations : undefined}
-              className={`flex items-center justify-between py-1 px-4 rounded-lg ${
-                item.active
-                  ? "bg-blue-100 text-blue-600"
+              onClick={() => handleItemClick(item.name)}
+              className={`flex items-center justify-between py-4 mb-4 pt- px-4 rounded-r-2xl ${
+                activeItem === item.name
+                  ? "bg-blue-100 text-[#0F3677]"
                   : darkMode
                   ? "text-gray-300 hover:bg-gray-700"
                   : "text-gray-900 hover:bg-gray-200"
               } transition-colors duration-200`}
             >
-              <div className="flex items-center space-x-3">
-                <span className="text-lg mt-5">{item.icon}</span>
-                <span className="text-[15px] font-medium mt-5">{item.name}</span>
+              <div className="flex items-center space-x-3 mb- mt-">
+                <span className="text-lg">{item.icon}</span>
+                <span className="text-[15px] ">{item.name}</span>
               </div>
               {item.isDropdown && (
-                <span className="text-lg mt-5">
-                  {operationsOpen ? <FaChevronUp /> : <FaChevronDown />}
+                <span className="text-lg ">
+                  {operationsOpen ? (
+                    <MdArrowDropUp size={"25px"} />
+                  ) : (
+                    <MdArrowDropDown size={"25px"} />
+                  )}
                 </span>
               )}
             </a>
 
             {item.isDropdown && operationsOpen && (
-              <div className="pl-8 mt-1">
+              <div className="pl-12 mt-2">
                 {item.subItems.map((subItem, subIndex) => (
                   <a
                     key={subIndex}
                     href="#"
+                    onClick={() => handleSubItemClick(subItem)}
                     className={`block py-2 px-4 rounded-lg ${
-                      darkMode
+                      activeSubItem === subItem
+                        ? "bg-blue-100 text-blue-600"
+                        : darkMode
                         ? "text-gray-300 hover:bg-gray-700"
                         : "text-gray-900 hover:bg-gray-200"
                     } transition-colors duration-200 text-sm`}
