@@ -12,6 +12,7 @@ import LoginPage from "./login/LoginPage";
 import OtpPage from "./otp/OtpPage";
 import ControlTowerPage from "./pages/ControlTower/ControlTowerPage";
 import FinancialMetrics from "./pages/ControlTower/components/FinancialMetrics";
+import CashRequestsPage from "./pages/CashRequests/CashRequestsPage";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -52,6 +53,14 @@ const App = () => {
             element={
               <>
                 <ControlTowerPage />
+              </>
+            }
+          />
+           <Route
+            path="/cash-requests"
+            element={
+              <>
+                <CashRequestsPage />
               </>
             }
           />
