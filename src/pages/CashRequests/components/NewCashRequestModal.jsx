@@ -42,7 +42,7 @@ const NewCashRequestModal = ({ isOpen, onClose, darkMode }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black opacity-95">
+    <div className="fixed inset-0 flex items-center justify-center z-50 ">
       <div
         className="absolute inset-0 bg-transparent backdrop-blur-sm"
         onClick={handleCancel}
