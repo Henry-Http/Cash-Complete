@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import Sidebar from "../../components/Sidebar";
 import CashRequestHeader from "./components/CashRequestHeader";
+import NewCashRequestModal from "./components/NewCashRequestModal";
 import CashRequestTable from "./components/CashRequestTable";
 
 const CashRequestsPage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -15,6 +17,14 @@ const CashRequestsPage = () => {
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -37,12 +47,15 @@ const CashRequestsPage = () => {
         />
 
         <main className="flex-1 p-4 md:p-6 max-w-full overflow-x-hidden">
-          <div>
-            <CashRequestHeader darkMode={darkMode} />
-          </div>
-          <div>
-            <CashRequestTable darkMode={darkMode} />
-          </div>
+          <CashRequestHeader darkMode={darkMode} onNewRequest={openModal} />
+
+          <CashRequestTable darkMode={darkMode} />
+
+          <NewCashRequestModal
+            isOpen={modalOpen}
+            onClose={closeModal}
+            darkMode={darkMode}
+          />
         </main>
       </div>
     </div>

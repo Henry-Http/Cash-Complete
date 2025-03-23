@@ -1,7 +1,7 @@
 import React from "react";
 import { FaFilter } from "react-icons/fa";
 
-const CashRequestHeader = ({ darkMode }) => {
+const CashRequestHeader = ({ darkMode, onNewRequest }) => {
   return (
     <div className="flex justify-between items-center mb-6">
       <h1
@@ -25,6 +25,7 @@ const CashRequestHeader = ({ darkMode }) => {
         </button>
 
         <button
+          onClick={onNewRequest} 
           className="px-4 py-2 bg-[#0F3677] text-white rounded-lg hover:bg-blue-800 transition-colors duration-200"
         >
           New Request
