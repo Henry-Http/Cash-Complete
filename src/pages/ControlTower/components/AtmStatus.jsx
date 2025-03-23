@@ -44,15 +44,15 @@ const AtmStatus = ({ darkMode }) => {
     labels: ["Safe", "Caution", "Danger", "Value"],
     datasets: [
       {
-        data: [40, 30, 30, 0],
-        backgroundColor: ["#4CAF50", "#FF9800", "#F44336", "transparent"],
+        data: [20, 60, 20, 0],
+        backgroundColor: [ "#FF9800","#4CAF50", "#F44336", "transparent"],
         borderWidth: 0,
-        circumference: 180,
-        rotation: 270,
+        circumference: 270,
+        rotation: 225,
       },
       {
         data: [64, 36],
-        backgroundColor: ["#000000", "transparent"],
+        backgroundColor: [ "transparent"],
         borderWidth: 0,
         circumference: 180,
         rotation: 270,
@@ -182,7 +182,7 @@ const AtmStatus = ({ darkMode }) => {
             <div className="relative flex justify-center mb-4 w-[150px] sm:w-[165px] mx-auto">
               <Doughnut data={gaugeData} options={gaugeOptions} />
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-                <p className="text-3xl font-bold mt-12">64%</p>
+                <p className="text-3xl font-bold mt-12 text-[#2ECF3E99]">64%</p>
               </div>
             </div>
             <div className="flex justify-center space-x-4 mb-4 text-sm">

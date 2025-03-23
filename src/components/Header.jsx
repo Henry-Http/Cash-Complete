@@ -6,7 +6,7 @@ import {
   FaSun,
   FaMoon,
 } from "react-icons/fa";
-import logo from "../../../assets/images/cash-logo.png";
+import logo from "../assets/images/cash-logo.png";
 
 const Header = ({ toggleSidebar, toggleDarkMode, darkMode }) => {
   return (

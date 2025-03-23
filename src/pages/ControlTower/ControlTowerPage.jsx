@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
+import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
 import DashboardStats from "./components/DashboardStats";
 import FinancialMetrics from "./components/FinancialMetrics";
 import AtmStatus from "./components/AtmStatus";
