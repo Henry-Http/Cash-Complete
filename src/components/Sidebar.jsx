@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaTachometerAlt,
   FaTasks,
@@ -11,7 +11,7 @@ import {
   FaCog,
 } from "react-icons/fa";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Sidebar = ({ sidebarOpen, toggleSidebar, darkMode }) => {
   const [operationsOpen, setOperationsOpen] = useState(false);
@@ -19,6 +19,23 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, darkMode }) => {
   const [activeSubItem, setActiveSubItem] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/cash-requests") {
+      setActiveItem("Operations");
+      setActiveSubItem("Cash Request");
+      setOperationsOpen(true);
+    } else if (location.pathname === "/control-tower") {
+      setActiveItem("Control Tower");
+      setActiveSubItem(null);
+      setOperationsOpen(false);
+    } else {
+      setActiveItem("Control Tower");
+      setActiveSubItem(null);
+      setOperationsOpen(false);
+    }
+  }, [location.pathname]);
 
   const toggleOperations = () => {
     setOperationsOpen(!operationsOpen);
@@ -31,6 +48,14 @@ const Sidebar = ({ sidebarOpen, toggleSidebar, darkMode }) => {
       setOperationsOpen(false);
     } else {
       toggleOperations();
+    }
+
+    if (itemName === "Control Tower") {
+      navigate("/control-tower");
+    }
+
+    if (sidebarOpen) {
+      toggleSidebar();
     }
   };
 
