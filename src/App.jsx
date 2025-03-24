@@ -53,17 +53,17 @@ const App = () => {
           <Route
             path="/control-tower"
             element={
-              <>
+              <ProtectedRoute>
                 <ControlTowerPage />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/cash-requests"
             element={
-              <>
+              <ProtectedRoute>
                 <CashRequestsPage />
-              </>
+              </ProtectedRoute>
             }
           />
           <Route path="/cash-requests/:id" element={<RequestDetailsPae />} />

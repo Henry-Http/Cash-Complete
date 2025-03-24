@@ -74,7 +74,7 @@ const LoginPage = () => {
         >
           <h2 className="text-2xl font-semibold mb-6 text-center">Log In</h2>
           {error && (
-            <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+            <p className="text-red-500 text-sm w-60 text-center mb-4">{error}</p>
           )}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
