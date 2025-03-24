@@ -14,6 +14,7 @@ import OtpPage from "./otp/OtpPage";
 import ControlTowerPage from "./pages/ControlTower/ControlTowerPage";
 import FinancialMetrics from "./pages/ControlTower/components/FinancialMetrics";
 import CashRequestsPage from "./pages/CashRequests/CashRequestsPage";
+import RequestDetailsPae from "./pages/CashRequests/components/RequestDetailsPage"
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -57,7 +58,7 @@ const App = () => {
               </>
             }
           />
-           <Route
+          <Route
             path="/cash-requests"
             element={
               <>
@@ -65,6 +66,7 @@ const App = () => {
               </>
             }
           />
+          <Route path="/cash-requests/:id" element={<RequestDetailsPae />} />
           <Route
             path="/FinancialMetrics"
             element={
